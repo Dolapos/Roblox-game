@@ -1,0 +1,76 @@
+{
+  "name": "MagicFightingGame",
+  "tree": {
+    "$className": "DataModel",
+
+    "ServerScriptService": {
+      "$className": "ServerScriptService",
+      "Server": {
+        "$path": "src/server"
+      }
+    },
+
+    "StarterPlayer": {
+      "$className": "StarterPlayer",
+      "StarterPlayerScripts": {
+        "$className": "StarterPlayerScripts",
+        "Client": {
+          "$path": "src/client"
+        }
+      }
+    },
+
+    "ReplicatedStorage": {
+      "$className": "ReplicatedStorage",
+      "Shared": {
+        "$path": "src/shared"
+      },
+      "Data": {
+        "$path": "src/data"
+      },
+      "Remotes": {
+        "$className": "Folder"
+      }
+    },
+
+    "Workspace": {
+      "$className": "Workspace",
+      "$properties": {
+        "StreamingEnabled": false
+      },
+      "MagicHall": {
+        "$className": "Folder"
+      },
+      "Arena": {
+        "$className": "Folder"
+      },
+      "Portal": {
+        "$className": "Folder"
+      }
+    },
+
+    "Lighting": {
+      "$className": "Lighting",
+      "$properties": {
+        "Ambient": [0.15, 0.1, 0.2],
+        "OutdoorAmbient": [0.2, 0.15, 0.25],
+        "Brightness": 1.5,
+        "ClockTime": 18,
+        "FogColor": [0.4, 0.3, 0.5],
+        "FogEnd": 500,
+        "GeographicLatitude": 45
+      }
+    },
+
+    "StarterGui": {
+      "$className": "StarterGui",
+      "$properties": {
+        "ResetPlayerGuiOnSpawn": false
+      }
+    },
+
+    "SoundService": {
+      "$className": "SoundService"
+    }
+  }
+}
