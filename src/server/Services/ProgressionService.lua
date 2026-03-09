@@ -70,6 +70,25 @@ function ProgressionService:_checkUnlocks(player, oldHits, newHits)
     return newUnlocks
 end
 
+function ProgressionService:setHits(player, amount)
+    local oldHits = self._dataService:getTotalHits(player)
+    -- Set hits by adding the difference
+    local diff = amount - oldHits
+    local newHits = self._dataService:addHits(player, diff)
+
+    local newUnlocks = self:_checkUnlocks(player, oldHits, newHits)
+
+    if self._progressionRemote then
+        self._progressionRemote:FireClient(player, {
+            totalHits = newHits,
+            newUnlocks = newUnlocks,
+            nextMilestone = ProgressionThresholds.getNextMilestone(newHits),
+        })
+    end
+
+    return newHits, newUnlocks
+end
+
 function ProgressionService:getPlayerProgression(player)
     local totalHits = self._dataService:getTotalHits(player)
     return {

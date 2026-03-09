@@ -127,4 +127,32 @@ Players.PlayerRemoving:Connect(function(player)
     powerManager:onPlayerRemoved(player)
 end)
 
+----------------------------------------------
+-- 6. Admin Commands (dev only)
+----------------------------------------------
+local ADMIN_IDS = {} -- Add your Roblox UserId(s) here, e.g. {123456789}
+
+local function isAdmin(player)
+    if #ADMIN_IDS == 0 then
+        -- No IDs set: allow all in Studio, block in live server
+        return game:GetService("RunService"):IsStudio()
+    end
+    for _, id in ipairs(ADMIN_IDS) do
+        if player.UserId == id then return true end
+    end
+    return false
+end
+
+Players.PlayerAdded:Connect(function(player)
+    player.Chatted:Connect(function(msg)
+        if not isAdmin(player) then return end
+
+        local amount = tonumber(msg:match("^/givehits%s+(%d+)$"))
+        if amount then
+            progressionService:setHits(player, amount)
+            print(("[Admin] Set %s hits to %d"):format(player.Name, amount))
+        end
+    end)
+end)
+
 print("[Server] All services initialized. Game is ready!")
