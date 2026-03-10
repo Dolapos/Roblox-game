@@ -201,4 +201,61 @@ return {
         isBarrier = true, barrierHealth = 80, barrierDuration = 5,
         animationId = "", causeRagdoll = false,
     },
+
+    -- === SINGULARITY (8000 hits) ===
+    SingularityPull = {
+        id = "SingularityPull", name = "Void Pull", slot = Enums.MoveSlot.Q,
+        description = "Open a mini singularity that pulls all enemies toward it.",
+        damageType = Enums.DamageType.Dark, baseDamage = 12, cooldown = 4.0,
+        range = 20, knockback = -25, hitboxShape = Enums.HitboxShape.Sphere,
+        hitboxSize = Vector3.new(16, 10, 16), castTime = 0.3, recoveryTime = 0.3,
+        isGroundTarget = true, animationId = "", causeRagdoll = false,
+    },
+    SingularityCollapse = {
+        id = "SingularityCollapse", name = "Space Collapse", slot = Enums.MoveSlot.E,
+        description = "Collapse a region of space, crushing everything inside.",
+        damageType = Enums.DamageType.Dark, baseDamage = 20, cooldown = 8.0,
+        range = 16, knockback = 10, hitboxShape = Enums.HitboxShape.Sphere,
+        hitboxSize = Vector3.new(12, 12, 12), castTime = 0.5, recoveryTime = 0.5,
+        isGroundTarget = true, statusEffect = "Crushed", statusDuration = 1.0,
+        animationId = "", causeRagdoll = true, staggerType = "Slam",
+    },
+    SingularityRift = {
+        id = "SingularityRift", name = "Dimensional Rift", slot = Enums.MoveSlot.R,
+        description = "Tear open a rift that devours everything in its path.",
+        damageType = Enums.DamageType.Dark, baseDamage = 24, cooldown = 18.0,
+        range = 25, knockback = -20, hitboxShape = Enums.HitboxShape.Sphere,
+        hitboxSize = Vector3.new(20, 15, 20), castTime = 0.7, recoveryTime = 0.7,
+        isZone = true, zoneDuration = 4, damagePerSecond = 8,
+        animationId = "", causeRagdoll = true, staggerType = "Special",
+    },
+
+    -- === GRAVITY HAND (12000 hits) ===
+    GravityGrip = {
+        id = "GravityGrip", name = "Gravity Grip", slot = Enums.MoveSlot.Q,
+        description = "Seize an enemy with gravitational force, suspending them.",
+        damageType = Enums.DamageType.Dark, baseDamage = 10, cooldown = 3.0,
+        range = 25, knockback = 0, hitboxShape = Enums.HitboxShape.Sphere,
+        hitboxSize = Vector3.new(5, 5, 5), castTime = 0.2, recoveryTime = 0.3,
+        statusEffect = "Grabbed", statusDuration = 1.5,
+        animationId = "", causeRagdoll = false,
+    },
+    GravityLaunch = {
+        id = "GravityLaunch", name = "Gravity Launch", slot = Enums.MoveSlot.E,
+        description = "Hurl a grabbed enemy with crushing gravitational force.",
+        damageType = Enums.DamageType.Dark, baseDamage = 22, cooldown = 7.0,
+        range = 30, knockback = 40, hitboxShape = Enums.HitboxShape.Line,
+        hitboxSize = Vector3.new(5, 5, 30), castTime = 0.3, recoveryTime = 0.5,
+        animationId = "", causeRagdoll = true, staggerType = "Heavy",
+    },
+    GravityDomain = {
+        id = "GravityDomain", name = "Gravity Domain", slot = Enums.MoveSlot.R,
+        description = "Create a massive gravity field. All enemies are crushed and helpless.",
+        damageType = Enums.DamageType.Dark, baseDamage = 18, cooldown = 22.0,
+        range = 0, knockback = 5, hitboxShape = Enums.HitboxShape.Sphere,
+        hitboxSize = Vector3.new(25, 15, 25), castTime = 0.8, recoveryTime = 0.8,
+        isZone = true, zoneDuration = 5, damagePerSecond = 6,
+        statusEffect = "Crushed", statusDuration = 2.0, slowEffect = 0.8,
+        animationId = "", causeRagdoll = true, staggerType = "Special",
+    },
 }

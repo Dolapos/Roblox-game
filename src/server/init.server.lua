@@ -31,7 +31,15 @@ end
 print("[Server] RemoteEvents created.")
 
 ----------------------------------------------
--- 2. Build the Map
+-- 2. Lighting & Atmosphere
+----------------------------------------------
+print("[Server] Applying lighting...")
+
+local LightingSetup = require(script.LightingSetup)
+LightingSetup.apply()
+
+----------------------------------------------
+-- 3. Build the Map
 ----------------------------------------------
 print("[Server] Building map...")
 
@@ -95,6 +103,11 @@ teleportService:init()
 local PowerVisualsService = require(script.Services.PowerVisualsService)
 local powerVisualsService = PowerVisualsService.new()
 powerVisualsService:init()
+
+-- NPC Boss Service (boss spawns, orb drops, world events)
+local NPCBossService = require(script.Services.NPCBossService)
+local npcBossService = NPCBossService.new(dataService, progressionService)
+npcBossService:init()
 
 ----------------------------------------------
 -- 5. Handle Player Data Sync

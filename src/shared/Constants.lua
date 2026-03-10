@@ -44,22 +44,16 @@ Constants.ZONE_UNKNOWN = "Unknown"
 
 -- Progression
 Constants.HITS_FOR_UNLOCK = {
-    -- Tier 0: Free (0 hits)
-    [0] = 0,
-    -- Tier 1: Starter powers (50 hits)
-    [1] = 50,
-    -- Tier 2: Intermediate (100 hits)
-    [2] = 100,
-    -- Tier 3: Advanced (200 hits)
-    [3] = 200,
-    -- Tier 4: Expert (500 hits)
-    [4] = 500,
-    -- Tier 5: Master (1000 hits)
-    [5] = 1000,
-    -- Tier 6: Legendary (2000 hits)
-    [6] = 2000,
-    -- Tier 7: Ultra Rare (5000 hits)
-    [7] = 5000,
+    [0] = 0,       -- Tier 0: Free
+    [1] = 50,      -- Tier 1: Starter
+    [2] = 100,     -- Tier 2: Intermediate
+    [3] = 200,     -- Tier 3: Advanced
+    [4] = 500,     -- Tier 4: Expert
+    [5] = 1000,    -- Tier 5: Master
+    [6] = 2000,    -- Tier 6: Legendary
+    [7] = 5000,    -- Tier 7: Ultra Rare
+    [8] = 8000,    -- Tier 8: Mythic
+    [9] = 12000,   -- Tier 9: Ultimate
 }
 
 -- Cooldown Minimums

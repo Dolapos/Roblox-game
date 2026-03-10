@@ -274,4 +274,33 @@ return {
         hitboxSize = Vector3.new(15, 10, 15), castTime = 0.5, recoveryTime = 0.5,
         stunDuration = 1.0, animationId = "", causeRagdoll = true,
     },
+
+    -- === BERSERK (1800 hits) ===
+    BerserkRoar = {
+        id = "BerserkRoar", name = "Primal Roar", slot = Enums.MoveSlot.Q,
+        description = "Unleash a terrifying roar that weakens and pushes enemies.",
+        damageType = Enums.DamageType.Physical, baseDamage = 10, cooldown = 5.0,
+        range = 12, knockback = 22, hitboxShape = Enums.HitboxShape.Sphere,
+        hitboxSize = Vector3.new(14, 10, 14), castTime = 0.3, recoveryTime = 0.4,
+        buffType = "Rage", buffAmount = 1.4, buffDuration = 8,
+        speedBoost = 1.2, animationId = "", causeRagdoll = false,
+    },
+    BerserkSlam = {
+        id = "BerserkSlam", name = "Earth Shatter", slot = Enums.MoveSlot.E,
+        description = "Slam both fists into the ground, cracking the earth.",
+        damageType = Enums.DamageType.Physical, baseDamage = 20, cooldown = 7.0,
+        range = 14, knockback = 25, hitboxShape = Enums.HitboxShape.Sphere,
+        hitboxSize = Vector3.new(14, 6, 14), castTime = 0.4, recoveryTime = 0.5,
+        isGroundTarget = true, splashRadius = 14,
+        animationId = "", causeRagdoll = true, staggerType = "Slam",
+    },
+    BerserkFrenzy = {
+        id = "BerserkFrenzy", name = "Blood Frenzy", slot = Enums.MoveSlot.R,
+        description = "Enter a berserker frenzy: rapid devastating strikes.",
+        damageType = Enums.DamageType.Physical, baseDamage = 6, cooldown = 14.0,
+        range = 8, knockback = 30, hitboxShape = Enums.HitboxShape.Box,
+        hitboxSize = Vector3.new(8, 6, 8), castTime = 0.3, recoveryTime = 0.7,
+        multiStrike = 8, strikeDelay = 0.1,
+        animationId = "", causeRagdoll = true, staggerType = "Heavy",
+    },
 }

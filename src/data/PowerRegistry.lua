@@ -621,6 +621,131 @@ PowerRegistry.Powers = {
         moves = {"DragonGodBreath", "DragonGodClaw", "DragonGodRoar"},
         hitsRequired = 5000,
     },
+
+    ---============================================
+    --- NEW ASPECT POWERS (extended progression)
+    ---============================================
+
+    Breeze = {
+        id = "Breeze",
+        name = "Breeze",
+        category = Enums.PowerCategory.Elemental,
+        tier = Enums.PowerTier.Advanced,
+        description = "Gentle but relentless wind. Disorient foes with constant pressure.",
+        displayColor = Color3.fromRGB(180, 240, 200),
+        moves = {"BreezeGust", "BreezeCyclone", "BreezeLift"},
+        hitsRequired = 250,
+    },
+
+    Rust = {
+        id = "Rust",
+        name = "Rust",
+        category = Enums.PowerCategory.Unique,
+        tier = Enums.PowerTier.Advanced,
+        description = "Corrode and weaken. Reduce enemy defenses over time.",
+        displayColor = Color3.fromRGB(160, 100, 60),
+        moves = {"RustTouch", "RustCloud", "RustDecay"},
+        hitsRequired = 350,
+    },
+
+    Watermelon = {
+        id = "Watermelon",
+        name = "Watermelon",
+        category = Enums.PowerCategory.Unique,
+        tier = Enums.PowerTier.Advanced,
+        description = "Hurl explosive watermelons. Surprisingly devastating.",
+        displayColor = Color3.fromRGB(50, 200, 80),
+        moves = {"MelonToss", "MelonSplit", "MelonBarrage"},
+        hitsRequired = 400,
+    },
+
+    Knife = {
+        id = "Knife",
+        name = "Knife",
+        category = Enums.PowerCategory.Unique,
+        tier = Enums.PowerTier.Advanced,
+        description = "Precision blade combat. Fast, deadly, and unforgiving.",
+        displayColor = Color3.fromRGB(200, 200, 210),
+        moves = {"KnifeSlash", "KnifeThrow", "KnifeFlurry"},
+        hitsRequired = 450,
+    },
+
+    Immolation = {
+        id = "Immolation",
+        name = "Immolation",
+        category = Enums.PowerCategory.Elemental,
+        tier = Enums.PowerTier.Expert,
+        description = "Engulf yourself in sacred flames. Burn everything nearby.",
+        displayColor = Color3.fromRGB(255, 120, 0),
+        moves = {"ImmolateAura", "ImmolateBurst", "ImmolateInferno"},
+        hitsRequired = 450,
+    },
+
+    Spear = {
+        id = "Spear",
+        name = "Spear",
+        category = Enums.PowerCategory.Unique,
+        tier = Enums.PowerTier.Expert,
+        description = "Master the ancient spear. Long reach and devastating thrusts.",
+        displayColor = Color3.fromRGB(180, 170, 160),
+        moves = {"SpearThrust", "SpearSweep", "SpearImpale"},
+        hitsRequired = 900,
+    },
+
+    Berserk = {
+        id = "Berserk",
+        name = "Berserk",
+        category = Enums.PowerCategory.Anime,
+        tier = Enums.PowerTier.Master,
+        description = "Unleash primal fury. Trade defense for overwhelming offense.",
+        displayColor = Color3.fromRGB(200, 30, 30),
+        moves = {"BerserkRoar", "BerserkSlam", "BerserkFrenzy"},
+        hitsRequired = 1800,
+    },
+
+    Gravel = {
+        id = "Gravel",
+        name = "Gravel",
+        category = Enums.PowerCategory.Elemental,
+        tier = Enums.PowerTier.Legendary,
+        description = "Control every stone and pebble. Absolute earth dominion.",
+        displayColor = Color3.fromRGB(140, 120, 100),
+        moves = {"GravelStorm", "GravelArmor", "GravelBurial"},
+        hitsRequired = 4200,
+    },
+
+    Volcano = {
+        id = "Volcano",
+        name = "Volcano",
+        category = Enums.PowerCategory.Elemental,
+        tier = Enums.PowerTier.UltraRare,
+        description = "Channel volcanic eruptions. Lava, ash, and devastation.",
+        displayColor = Color3.fromRGB(255, 60, 0),
+        moves = {"VolcanoErupt", "VolcanoLavaFlow", "VolcanoAshStorm"},
+        hitsRequired = 5200,
+    },
+
+    Singularity = {
+        id = "Singularity",
+        name = "Singularity",
+        category = Enums.PowerCategory.SciFi,
+        tier = Enums.PowerTier.UltraRare,
+        description = "Collapse space itself. Nothing escapes your gravitational pull.",
+        displayColor = Color3.fromRGB(30, 0, 60),
+        moves = {"SingularityPull", "SingularityCollapse", "SingularityRift"},
+        hitsRequired = 8000,
+    },
+
+    GravityHand = {
+        id = "GravityHand",
+        name = "Gravity Hand",
+        category = Enums.PowerCategory.SciFi,
+        tier = Enums.PowerTier.UltraRare,
+        description = "The ultimate power. Control gravity itself with a wave of your hand.",
+        displayColor = Color3.fromRGB(100, 0, 150),
+        moves = {"GravityGrip", "GravityLaunch", "GravityDomain"},
+        hitsRequired = 12000,
+    },
 }
 
 -- Power Evolution Trees

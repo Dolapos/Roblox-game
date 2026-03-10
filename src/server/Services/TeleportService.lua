@@ -1,45 +1,45 @@
 --[[
     TeleportService.lua
     Handles portal teleportation between Magic Hall and Arena.
-    Detects when players touch the portal and teleports them.
+    Detects when players walk through the portal archway or step on return portal.
 ]]
 
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Workspace = game:GetService("Workspace")
 
 local ZoneConfig = require(ReplicatedStorage.Shared.ZoneConfig)
+local Remotes = require(ReplicatedStorage.Shared.Remotes)
 
 local TeleportService = {}
 TeleportService.__index = TeleportService
 
 function TeleportService.new()
     local self = setmetatable({}, TeleportService)
-    self._portalCooldowns = {} -- Prevent spam {[Player] = lastUseTime}
-    self._portalCooldownTime = 2 -- seconds between teleports
+    self._portalCooldowns = {}
+    self._portalCooldownTime = 2
     return self
 end
 
 function TeleportService:init()
-    -- Setup portal touch detection
     task.spawn(function()
         self:_setupPortals()
     end)
 end
 
 function TeleportService:_setupPortals()
-    -- Wait for Workspace to be ready
-    local workspace = game:GetService("Workspace")
-
-    -- Create portal from Magic Hall to Arena
-    local portalFolder = workspace:FindFirstChild("Portal")
+    local portalFolder = Workspace:FindFirstChild("Portal")
     if not portalFolder then
         portalFolder = Instance.new("Folder")
         portalFolder.Name = "Portal"
-        portalFolder.Parent = workspace
+        portalFolder.Parent = Workspace
     end
 
-    -- Portal to Arena (in Magic Hall)
-    local toArenaPortal = self:_createPortalPart("ToArenaPortal", CFrame.new(0, 8, -85))
+    -- Portal trigger zone inside the Magic Hall archway
+    -- The vortex visual is built by MapBuilder at (0, 12, 97)
+    -- We place an invisible trigger just behind it
+    local toArenaPortal = self:_createTriggerZone("ToArenaPortal",
+        CFrame.new(0, 10, 100), Vector3.new(24, 20, 6))
     toArenaPortal.Parent = portalFolder
 
     toArenaPortal.Touched:Connect(function(hit)
@@ -49,8 +49,9 @@ function TeleportService:_setupPortals()
         end
     end)
 
-    -- Portal back to Magic Hall (in Arena)
-    local toHallPortal = self:_createPortalPart("ToHallPortal", CFrame.new(0, 8, 410))
+    -- Return portal in Arena (on the glowing pad at arena center Z-100)
+    local toHallPortal = self:_createTriggerZone("ToHallPortal",
+        CFrame.new(0, 3, 400), Vector3.new(14, 6, 14))
     toHallPortal.Parent = portalFolder
 
     toHallPortal.Touched:Connect(function(hit)
@@ -59,63 +60,34 @@ function TeleportService:_setupPortals()
             self:teleportToMagicHall(player)
         end
     end)
+
+    -- Add label to return portal
+    local returnBillboard = Instance.new("BillboardGui")
+    returnBillboard.Size = UDim2.new(0, 220, 0, 50)
+    returnBillboard.StudsOffset = Vector3.new(0, 6, 0)
+    returnBillboard.AlwaysOnTop = true
+    returnBillboard.Parent = toHallPortal
+
+    local returnLabel = Instance.new("TextLabel")
+    returnLabel.Size = UDim2.new(1, 0, 1, 0)
+    returnLabel.BackgroundTransparency = 1
+    returnLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    returnLabel.TextStrokeColor3 = Color3.fromRGB(100, 50, 200)
+    returnLabel.TextStrokeTransparency = 0.2
+    returnLabel.TextScaled = true
+    returnLabel.Font = Enum.Font.Fantasy
+    returnLabel.Text = "Return to Magic Hall"
+    returnLabel.Parent = returnBillboard
 end
 
-function TeleportService:_createPortalPart(name, cframe)
+function TeleportService:_createTriggerZone(name, cframe, size)
     local part = Instance.new("Part")
     part.Name = name
-    part.Size = Vector3.new(12, 16, 4)
+    part.Size = size
     part.CFrame = cframe
     part.Anchored = true
     part.CanCollide = false
-    part.Transparency = 0.3
-    part.Material = Enum.Material.Neon
-    part.Color = Color3.fromRGB(180, 120, 255)
-    part.Shape = Enum.PartType.Block
-
-    -- Add a particle effect
-    local particle = Instance.new("ParticleEmitter")
-    particle.Color = ColorSequence.new(Color3.fromRGB(200, 150, 255), Color3.fromRGB(100, 50, 200))
-    particle.Size = NumberSequence.new({
-        NumberSequenceKeypoint.new(0, 0.5),
-        NumberSequenceKeypoint.new(1, 0),
-    })
-    particle.Lifetime = NumberRange.new(0.5, 1.5)
-    particle.Rate = 50
-    particle.Speed = NumberRange.new(2, 5)
-    particle.SpreadAngle = Vector2.new(180, 180)
-    particle.LightEmission = 1
-    particle.Parent = part
-
-    -- Point light for glow
-    local light = Instance.new("PointLight")
-    light.Color = Color3.fromRGB(180, 120, 255)
-    light.Brightness = 2
-    light.Range = 20
-    light.Parent = part
-
-    -- Billboard label
-    local billboard = Instance.new("BillboardGui")
-    billboard.Size = UDim2.new(0, 200, 0, 50)
-    billboard.StudsOffset = Vector3.new(0, 10, 0)
-    billboard.AlwaysOnTop = true
-    billboard.Parent = part
-
-    local label = Instance.new("TextLabel")
-    label.Size = UDim2.new(1, 0, 1, 0)
-    label.BackgroundTransparency = 1
-    label.TextColor3 = Color3.fromRGB(255, 255, 255)
-    label.TextStrokeTransparency = 0.5
-    label.TextScaled = true
-    label.Font = Enum.Font.Fantasy
-    label.Parent = billboard
-
-    if name == "ToArenaPortal" then
-        label.Text = "Enter Arena"
-    else
-        label.Text = "Return to Magic Hall"
-    end
-
+    part.Transparency = 1
     return part
 end
 
@@ -124,7 +96,6 @@ function TeleportService:teleportToArena(player)
 
     local character = player.Character
     if not character then return end
-
     local rootPart = character:FindFirstChild("HumanoidRootPart")
     if not rootPart then return end
 
@@ -132,6 +103,18 @@ function TeleportService:teleportToArena(player)
     rootPart.CFrame = arenaZone.spawnPoint
 
     self._portalCooldowns[player] = tick()
+
+    -- Notify client of zone transition
+    local remotesFolder = ReplicatedStorage:FindFirstChild("Remotes")
+    if remotesFolder then
+        local notifyRemote = remotesFolder:FindFirstChild(Remotes.NotifyPlayer)
+        if notifyRemote then
+            notifyRemote:FireClient(player, {
+                type = "Teleport",
+                message = "You have entered the Arena!",
+            })
+        end
+    end
 end
 
 function TeleportService:teleportToMagicHall(player)
@@ -139,7 +122,6 @@ function TeleportService:teleportToMagicHall(player)
 
     local character = player.Character
     if not character then return end
-
     local rootPart = character:FindFirstChild("HumanoidRootPart")
     if not rootPart then return end
 
@@ -148,7 +130,7 @@ function TeleportService:teleportToMagicHall(player)
 
     self._portalCooldowns[player] = tick()
 
-    -- Heal player when returning to hall
+    -- Heal when returning to hall
     local humanoid = character:FindFirstChildOfClass("Humanoid")
     if humanoid then
         humanoid.Health = humanoid.MaxHealth
